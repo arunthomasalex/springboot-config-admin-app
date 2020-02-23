@@ -1,0 +1,22 @@
+version: '3'
+services:
+  admin-server:
+    image: admin-server
+    container_name: admin-server
+    ports:
+      - "8889:8889"
+    restart: always
+    networks:
+      - springboot
+  application-properties:
+    image: application-properties
+    container_name: application-properties
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on:
+      - admin-server
+    networks:
+      - springboot
+networks:
+  springboot:
