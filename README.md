@@ -5,7 +5,7 @@
 
 ## Application Properties
 - The application need to be build using **gradlew bootJar**
-- Run **docker build . -t admin-server** to upload the image to the docker
+- Run **docker build . -t application-properties** to upload the image to the docker
 
 ## Startig the environment
 - Run **docker-compose up -d** to start up all the application in detached mode
