@@ -47,8 +47,3 @@ test {
 }
 
 sourceSets { main { resources { exclude '**/*.txt' } } }
-
-task dockerBuild() {
-	dependsOn 'bootJar'
-
-}

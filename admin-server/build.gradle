@@ -36,12 +36,3 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
-
-
-task dockerBuild {
-    doLast {
-        println 'Docker build has completed.'
-    }
-}
-
-dockerBuild.dependsOn bootJar
