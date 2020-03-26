@@ -4,19 +4,67 @@ services:
     image: admin-server
     container_name: admin-server
     ports:
-      - "8889:8889"
+    - '8889:8889'
     restart: always
     networks:
-      - springboot
-  application-properties:
+    - springboot
+  application-properties1:
     image: application-properties
-    container_name: application-properties
+    container_name: application-properties1
     ports:
-      - "8888:8888"
+    - '8888:8888'
     restart: always
     depends_on:
-      - admin-server
+    - admin-server
     networks:
-      - springboot
+    - springboot
+  application-properties2:
+    image: application-properties
+    container_name: application-properties2
+    ports:
+    - '8887:8888'
+    restart: always
+    depends_on:
+    - admin-server
+    networks:
+    - springboot
+  application-properties3:
+    image: application-properties
+    container_name: application-properties3
+    ports:
+    - '8886:8888'
+    restart: always
+    depends_on:
+    - admin-server
+    networks:
+    - springboot
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports:
+    - '8080:80'
+    volumes:
+    - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+    - application-properties1
+    - application-properties2
+    - application-properties3
+    networks:
+    - springboot
+  hz:
+    image: 'hazelcast/hazelcast:latest'
+    ports:
+    - '5701:5701'
+    restart: always
+    networks:
+    - springboot
+  management-center:
+    image: 'hazelcast/management-center:latest'
+    ports:
+    - '8081:8080'
+    restart: always
+    networks:
+    - springboot
 networks:
   springboot:
