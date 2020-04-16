@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Authorize</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script>
+		function authorize(auth) {
+			document.getElementById("scope").value = auth;
+			document.getElementById("confirmationForm").submit();
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron mt-3">
+			<h2 class="jumbotron-heading">Please Confirm</h2>
+			<p class="lead">
+				You hereby authorize <b th:text="${client.clientId}"></b> to access your
+				protected resources.
+			</p>
+			<form id="confirmationForm" name="confirmationForm" method="post" action="/auth/oauth/authorize">
+				<input name="user_oauth_approval" value="true" type="hidden" />
+				<input id="scope" type="hidden" name="scope.read" />
+			</form>
+			<input class="btn btn-lg btn-primary" name="authorize" type="submit" value="Accept" onclick="authorize(true);"/>
+			<input class="btn btn-lg btn-primary" name="deny" type="submit" value="Decline" onclick="authorize(false);"/>
+		</div>
+	</div>
+
+</body>
+</html>

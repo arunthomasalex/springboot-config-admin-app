@@ -1,5 +1,18 @@
 version: '3'
 services:
+  mariadb:
+    image: mariadb:10.2
+    container_name: dockermariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: usermanagement
+    ports:
+    - '6033:3306'
+    networks:
+      - springboot
+    restart: always
+
   admin-server:
     image: admin-server
     container_name: admin-server
@@ -8,9 +21,10 @@ services:
     restart: always
     networks:
     - springboot
-  application-properties1:
+    
+  application-properties:
     image: application-properties
-    container_name: application-properties1
+    container_name: application-properties
     ports:
     - '8888:8888'
     restart: always
@@ -18,53 +32,47 @@ services:
     - admin-server
     networks:
     - springboot
-  application-properties2:
-    image: application-properties
-    container_name: application-properties2
+    
+  authentication:
+    image: authentication
+    container_name: authentication
+    build:
+      context: ./authentication
+      dockerfile: Dockerfile
     ports:
-    - '8887:8888'
+    - '9000:9000'
     restart: always
     depends_on:
-    - admin-server
+    - mariadb
+    - application-properties
     networks:
     - springboot
-  application-properties3:
-    image: application-properties
-    container_name: application-properties3
-    ports:
-    - '8886:8888'
+    
+  client-app:
+    image: clientapp
+    container_name: clientapp
+    build:
+      context: ./client-app
+      dockerfile: Dockerfile
     restart: always
     depends_on:
-    - admin-server
+    - authentication
     networks:
     - springboot
+    
   nginx:
     image: nginx
     container_name: nginx
     restart: always
     ports:
-    - '8080:80'
+    - '8000:80'
     volumes:
     - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
-    - application-properties1
-    - application-properties2
-    - application-properties3
+    - application-properties
+    - authentication
     networks:
     - springboot
-  hz:
-    image: 'hazelcast/hazelcast:latest'
-    ports:
-    - '5701:5701'
-    restart: always
-    networks:
-    - springboot
-  management-center:
-    image: 'hazelcast/management-center:latest'
-    ports:
-    - '8081:8080'
-    restart: always
-    networks:
-    - springboot
+    
 networks:
   springboot:

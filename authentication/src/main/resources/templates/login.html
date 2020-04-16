@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<main role="main" class="container mt-5 pt-3">
+	<form class="form-signin" name="f" action="/auth/login" method="post">
+		<div class="text-center mb-4">
+			<img class="mb-4" src=""
+				alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">User Login</h1>
+			<p>
+				<span class="display-3" th:text="${errorMsg}"></span>
+				Common platform for managing users for all application using
+				<code>:Oauth2</code>
+			</p>
+			<div ng-bind-html="errorMessage"></div>
+		</div>
+
+		<div class="form-label-group">
+			<input type="text" id="username" class="form-control"
+				placeholder="userid" required="required" autofocus=""
+				name="username"> <label for="inputEmail">Username/Email
+				address</label>
+		</div>
+
+		<div class="form-label-group">
+			<input type="password" id="password" name="password"
+				class="form-control" placeholder="password" required="required">
+			<label for="inputPassword">Password</label>
+		</div>
+
+		<div class="checkbox mb-3">
+			<label> <input type="checkbox" value="remember-me">
+				Remember me
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit"
+			value="Login">Sign in</button>
+		<p class="mt-5 mb-3 text-muted text-center">2017-2019</p>
+	</form>
+	</main>
+</body>
+</html>
