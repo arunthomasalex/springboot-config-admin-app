@@ -1,10 +1,14 @@
 package com.run.clientapp.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +34,18 @@ public class HomeController {
 			model.addObject("error", isTokenEmpty(session));
 		}
 		return model;
+	}
+
+	@GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> test() {
+		System.out.println("Entered");
+		return new HashMap<String, String>(){
+			{
+				put("fname", "Arun");
+				put("mname", "Thomas");
+				put("lname", "Alex");
+			}
+		};
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET, params = "code")
